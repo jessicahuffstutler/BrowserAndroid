@@ -1,5 +1,6 @@
 package com.theironyard.browserandroid;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forwardButton.setOnClickListener(this);
         goButton.setOnClickListener(this);
 
-        webView.setWebViewClient(new WebViewClient());
+        //adding this to update the URL when we go to a new web page.
+        WebViewClient client = new WebViewClient() { //anonymous class, in curly braces with a semicolon at the end, where we can override a method
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                addressBar.setText(url);
+            }
+        };
+
+        webView.setWebViewClient(client);
     }
 
     @Override
